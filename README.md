@@ -49,6 +49,10 @@ The command above will create an EKS cluster "next-app" in the "us-east-2" regio
 - **eksctl-next-app-cluster** for the cluster
 - **eksctl-next-app-nodegroup-ng-1** for the initial nodegroup
 
+### Create ECR Repository
+
+Create an ECR Repository named "next-app" to manage images built in the project.
+
 ### Configure Environment Variables on CircleCI
 
 Set the following environment variables on CircleCI > Project Settings:
