@@ -1,0 +1,17 @@
+version: 2.1
+
+jobs:
+  lint:
+    docker:
+      - image: node:16-alpine
+    steps:
+      - checkout
+      - run:
+          name: Run ESLint
+          command: |
+            yarn lint
+
+workflows:
+  deployment:
+    jobs:
+      - lint
