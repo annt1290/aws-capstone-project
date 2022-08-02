@@ -9,6 +9,7 @@ jobs:
       - run:
           name: Run ESLint
           command: |
+            yarn
             yarn lint
 
 workflows:
