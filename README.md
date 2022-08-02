@@ -1,4 +1,4 @@
-[] TODO: CircleCI Status Badge
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/annt1290/aws-capstone-project/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/annt1290/aws-capstone-project/tree/main)
 
 # aws-capstone-project
 
