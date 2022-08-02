@@ -16,3 +16,11 @@ workflows:
   deployment:
     jobs:
       - lint
+      - aws-ecr/build-and-push-image:
+          name: build-and-push-image
+          extra-build-args: |
+            --build-arg VERSION_HASH="${CIRCLE_SHA1}" \
+          region: "${AWS_DEFAULT_REGION}"
+          repo: next-app
+          requires:
+            - lint
