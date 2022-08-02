@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: next-app
+  labels:
+    app: next-app
+spec:
+  selector:
+    matchLabels:
+      app: next-app
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: next-app
+    spec:
+      containers:
+      - name: app
+        image: 950151735420.dkr.ecr.us-east-1.amazonaws.com/next-app:latest
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - containerPort: 3000
