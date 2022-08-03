@@ -73,7 +73,12 @@ jobs:
             EXTERNAL_IP=$(kubectl get service next-app | awk '{print $4}' | tail -n1)
             echo "EXTERNAL_IP: ${EXTERNAL_IP}"
             echo "Expected version: << parameters.expected-version >>"
-            curl -s "http://${EXTERNAL_IP}" | grep "<< parameters.expected-version >>"
+            if curl -s "http://${EXTERNAL_IP}" | grep "<< parameters.expected-version >>"
+            then
+              return 0
+            else
+              return 1
+            fi
 
 workflows:
   deployment:
