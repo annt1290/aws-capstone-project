@@ -97,6 +97,6 @@ workflows:
       - test:
           aws-region: "${AWS_DEFAULT_REGION}"
           cluster-name: next-app
-          expected-version: test
+          expected-version: "${CIRCLE_SHA1:0:7}"
           requires:
             - deploy
