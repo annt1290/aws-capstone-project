@@ -3,7 +3,7 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
-  const versionHash = process.env.NEXT_PUBLIC_VERSION_HASH || 'dev';
+  const versionHash = process.env.NEXT_PUBLIC_VERSION_HASH || 'dev01';
 
   return (
     <div className={styles.container}>
