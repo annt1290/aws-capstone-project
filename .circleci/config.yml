@@ -70,7 +70,7 @@ jobs:
       - run:
           name: Test new version is deployed
           command: |
-            EXTERNAL_IP=$(kubectl get service next-app | awk '{print $4}') | tail -n1
+            EXTERNAL_IP=$(kubectl get service next-app | awk '{print $4}' | tail -n1)
             echo "EXTERNAL_IP: ${EXTERNAL_IP}"
             echo "Expected version: << parameters.expected-version >>"
             curl -s "http://${EXTERNAL_IP}" | grep "<< parameters.expected-version >>"
