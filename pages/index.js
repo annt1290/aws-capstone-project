@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import styles from '../styles/Home.module.css'
 
 export default function Home() {
   const versionHash = process.env.NEXT_PUBLIC_VERSION_HASH || 'dev';
