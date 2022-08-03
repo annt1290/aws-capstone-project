@@ -35,7 +35,7 @@ jobs:
       - run:
           name: Update image URL in deployment config
           command: |
-            sed -ie "s/IMAGE_URL/<< parameters.image-url >>/g" k8s/deployment.yml
+            sed -i "s|IMAGE_URL|<< parameters.image-url >>|g" k8s/deployment.yml
       - aws-eks/update-kubeconfig-with-authenticator:
           aws-region: << parameters.aws-region >>
           cluster-name: << parameters.cluster-name >>
