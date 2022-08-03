@@ -6,6 +6,11 @@ Udacity AWS Devops - Capstone project
 
 This is a [Next.js](https://nextjs.org/) project with rolling deployment to [EKS](https://aws.amazon.com/eks/) using [CircleCI](https://circleci.com/).
 
+Pipeline:
+```
+Lint --> Build and push image --> Deploy --> Test
+```
+
 ## Work Local
 
 ### Getting Started
@@ -47,7 +52,7 @@ eksctl create cluster -f eks-cluster.yml
 The command above will create an EKS cluster "next-app" in the "us-east-2" region (see [eks-cluster.yml](eks-cluster.yml) config file) with two [CloudFormation](https://aws.amazon.com/cloudformation/) stacks:
 
 - **eksctl-next-app-cluster** for the cluster
-- **eksctl-next-app-nodegroup-ng-1** for the initial nodegroup
+- **eksctl-next-app-nodegroup-managed-ng-1** for the initial nodegroup
 
 ### Create ECR Repository
 
@@ -57,7 +62,16 @@ Create an ECR Repository named "next-app" to manage images built in the project.
 
 Set the following environment variables on CircleCI > Project Settings:
 
-- AWS_ACCESS_KEY_ID: IAM user credentials.
-- AWS_SECRET_ACCESS_KEY: IAM user credentials.
-- AWS_DEFAULT_REGION: AWS default region, for pushing image and deploying app.
-- AWS_ECR_REGISTRY_ID: The 12 digit AWS id associated with the ECR account.
+- `AWS_ACCESS_KEY_ID`: IAM user credentials.
+- `AWS_SECRET_ACCESS_KEY`: IAM user credentials.
+- `AWS_DEFAULT_REGION`: AWS default region, for pushing image and deploying app.
+- `AWS_ECR_REGISTRY_ID`: The 12 digit AWS id associated with the ECR account.
+
+## Project files
+
+- [Dockerfile](Dockerfile): A multi-stage builds Dockerfile for next.js app.
+- [eks-cluster.yml](eks-cluster.yml): EKS cluster config file. Include cluster name, region and node groups definition.
+- [k8s/deployment.yml](k8s/deployment.yml): Kubernetes deployment config file. Include deployment strategy and containers spec.
+- [k8s/service.yml](k8s/service.yml): Kubernetes service config file. Include spec for the load balancer.
+- [.circleci/config.yml](.circleci/config.yml): CircleCI config file. It uses [aws-eks](https://circleci.com/developer/orbs/orb/circleci/aws-eks), [aws-ecr](https://circleci.com/developer/orbs/orb/circleci/aws-ecr), and [kubernetes](https://circleci.com/developer/orbs/orb/circleci/kubernetes) orbs to build the jobs.
+- Other files: Next.js source code.
