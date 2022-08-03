@@ -98,3 +98,5 @@ workflows:
           aws-region: "${AWS_DEFAULT_REGION}"
           cluster-name: next-app
           expected-version: test
+          requires:
+            - deploy
