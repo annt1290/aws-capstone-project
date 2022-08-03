@@ -49,6 +49,32 @@ jobs:
           resource-file-path: "k8s/service.yml"
           show-kubectl-command: true
 
+  test:
+    docker:
+      - image: 'cimg/python:3.10'
+    parameters:
+      aws-region:
+        description: AWS region
+        type: string
+      cluster-name:
+        description: AWS EKS cluster name
+        type: string
+      expected-version:
+        description: Expected version to verify the new app is deployed
+        type: string
+    steps:
+      - aws-eks/update-kubeconfig-with-authenticator:
+          cluster-name: << parameters.cluster-name >>
+          install-kubectl: true
+          aws-region: << parameters.aws-region >>
+      - run:
+          name: Check new version
+          command: |
+            EXTERNAL_IP=$(kubectl get service next-app | awk '{print $4}')
+            echo "EXTERNAL_IP: ${EXTERNAL_IP}"
+            echo "Expected version: << parameters.expected-version >>"
+            curl -s "http://${EXTERNAL_IP}" | grep "<< parameters.expected-version >>"
+
 workflows:
   deployment:
     jobs:
@@ -68,3 +94,7 @@ workflows:
           image-url: "${AWS_ECR_REGISTRY_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/next-app:${CIRCLE_SHA1:0:7}"
           requires:
             - build-and-push-image
+      - test:
+          aws-region: "${AWS_DEFAULT_REGION}"
+          cluster-name: next-app
+          expected-version: test
