@@ -39,8 +39,10 @@ jobs:
           resource-file-path: "k8s/deployment.yml"
           resource-name: deployment/next-app
           get-rollout-status: true
+          show-kubectl-command: true
       - kubernetes/create-or-update-resource:
           resource-file-path: "k8s/service.yml"
+          show-kubectl-command: true
 
 workflows:
   deployment:
@@ -49,7 +51,7 @@ workflows:
       - aws-ecr/build-and-push-image:
           name: build-and-push-image
           extra-build-args: |
-            --build-arg VERSION_HASH="${CIRCLE_SHA1}" \
+            --build-arg VERSION_HASH="${CIRCLE_SHA1:0:7}" \
           region: "${AWS_DEFAULT_REGION}"
           repo: next-app
           requires:

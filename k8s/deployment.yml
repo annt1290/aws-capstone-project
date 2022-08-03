@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: app
-        image: 950151735420.dkr.ecr.us-east-1.amazonaws.com/next-app:latest
+        image: 950151735420.dkr.ecr.us-east-2.amazonaws.com/next-app:latest
         resources:
           requests:
             cpu: 100m

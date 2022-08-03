@@ -5,8 +5,7 @@ metadata:
   name: next-app
   region: us-east-2
 
-nodeGroups:
-  - name: ng-1
-    instanceType: t2.small
+managedNodeGroups:
+  - name: managed-ng-1
+    instanceType: t2.micro
     desiredCapacity: 3
-    volumeSize: 80
